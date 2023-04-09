@@ -29,7 +29,8 @@ class ProductController extends Controller
             $validator = Validator::make($post, [
                 'product_name' => "required|max:255|unique:product,product_name,$id,id_product",
                 'product_price' => 'required|numeric|between:1,99999999999999',
-                'product_quantity' => 'required|numeric|between:0,99999999999999'
+                'product_quantity' => 'required|numeric|between:0,99999999999999',
+                'id_category' => 'required'
 
             ]);
             if($validator->fails()){
