@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')
@@ -16,6 +15,8 @@ Route::name('admin.')
                 ->prefix('product')
                 ->group(function () {
                     Route::get('/', [ProductController::class, 'index'])->name('index');
+                    Route::match(['get', 'post'], '/edit/{id?}', [ProductController::class, 'edit'])->name('edit');
+                    Route::get('/delete/{id?}', [ProductController::class, 'delete'])->name('delete');
                 });
             Route::name('category.')
                 ->prefix('category')
