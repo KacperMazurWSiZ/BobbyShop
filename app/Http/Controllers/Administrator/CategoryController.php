@@ -25,7 +25,7 @@ class CategoryController extends Controller
         if (request()->isMethod('POST')){
             $post = request()->get("form");
             $validator = Validator::make($post, [
-                'category_name' => 'required|unique:category,category_name|max:255'
+                'category_name' => "required|max:255|unique:category,category_name,$id,id_category",
             ]);
             if($validator->fails()){
                 return redirect()->route('admin.category.edit', [ 'id' => $category->getKey() ])->withErrors($validator);
