@@ -12,8 +12,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-
-        $categories = Category::all();
+        $categories = Category::withCount(['product'])->get();
         return view('administrator.category.index', [
             "categories" => $categories
         ]);
@@ -54,6 +53,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         DB::beginTransaction();
         try{
+            $category->product()->delete();
             $category->delete();
             DB::commit();
         }

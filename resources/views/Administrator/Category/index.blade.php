@@ -14,6 +14,7 @@
                             <th>Id Category</th>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Amount</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -23,6 +24,7 @@
                                 <td>{{ $category->id_category }}</td>
                                 <td>{{ $category->category_name }}</td>
                                 <td>{{ $category->category_status }}</td>
+                                <td>{{ $category->product_count }}</td>
                                 <td>
                                     <a href="{{route('admin.category.edit', ['id' => $category->getKey()])}}" class="btn cur-p btn-warning"><i class="ti-pencil"></i></a>
                                     <a href="{{route('admin.category.delete', ['id' => $category->getKey()])}}" class="btn cur-p btn-danger btn-color"><i class="ti-trash"></i></a>
