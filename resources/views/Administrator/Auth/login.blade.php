@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <title>Sign In</title>
+    <title>{{config("admin.appTitle", "title")}}</title>
+    <link rel="shortcut icon" href="{{ asset('images/icon.png') }}">
+
     <style>
         #loader {
             transition: all 0.3s ease-in-out;

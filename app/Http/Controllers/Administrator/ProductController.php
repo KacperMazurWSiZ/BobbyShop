@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -13,7 +14,6 @@ class ProductController extends Controller
 
     public function index()
     {
-
         $products = Product::with(['category'])->get();
         return view('administrator.product.index', [
             "products" => $products
@@ -31,15 +31,30 @@ class ProductController extends Controller
                 'product_price' => 'required|numeric|between:1,99999999999999',
                 'product_quantity' => 'required|numeric|between:0,99999999999999',
                 'id_category' => 'required'
-
             ]);
+
             if($validator->fails()){
                 return redirect()->route('admin.product.edit', [ 'id' => $product->getKey() ])->withErrors($validator);
             }
+
+            if(request()->hasFile('product_filepath')){
+                if(!is_null($product->product_filepath)){
+                    $filepath = $product->product_filepath;
+                    if(Storage::exists("public/$filepath")){
+                        Storage::delete("public/$filepath");
+                    }
+                }
+                $image =  request()->file('product_filepath');
+                $imageName = time().'.'.$image->extension();
+                $image->storeAs('public', $imageName);
+            }
+
+
             DB::beginTransaction();
             try{
                 $product->fill($post);
                 $product->product_status = isset($post['product_status']);
+                $product->product_filepath = $imageName ?? null;
                 $product->save();
 
                 DB::commit();
@@ -62,6 +77,12 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         DB::beginTransaction();
         try{
+            if(!is_null($product->product_filepath)){
+                $filepath = $product->product_filepath;
+                if(Storage::exists("public/$filepath")){
+                    Storage::delete("public/$filepath");
+                }
+            }
             $product->delete();
             DB::commit();
         }
@@ -71,6 +92,7 @@ class ProductController extends Controller
         }
         return redirect()->route('admin.product.index')->with('success', 'The operation was successful!');
     }
+
 
 
 }

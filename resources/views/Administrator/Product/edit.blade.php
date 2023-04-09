@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="bgc-white p-20 bd">
                     <div class="mT-30">
-                        <form method="post" action="{{route('admin.product.edit', ['id' => $product->getKey()])}}">
+                        <form method="post" action="{{route('admin.product.edit', ['id' => $product->getKey()])}}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="exampleInputEmail1">
@@ -36,7 +36,8 @@
                                 <label class="form-label" for="exampleInputEmail1">
                                     Product Image
                                 </label>
-                                <input type="file" class="form-control" name="form[product_filepath]">
+                                <input type="file" class="form-control" name="product_filepath">
+                                <span>{{$product->product_filepath}}</span>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="exampleInputEmail1">
