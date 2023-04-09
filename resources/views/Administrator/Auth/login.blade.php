@@ -85,6 +85,11 @@
                 </ul>
             </div>
         @endif
+        @if(session()->has('danger'))
+            <div class="alert alert-danger">
+                {{ session()->get('danger') }}
+            </div>
+        @endif
         <h4 class="fw-300 c-grey-900 mB-40">Login</h4>
         <form method="post">
             @csrf
