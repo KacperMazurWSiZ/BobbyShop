@@ -16,16 +16,18 @@ class AuthController extends Controller
                 'admin_login' => 'required',
                 'admin_password' => 'required'
             ]);
-            if($validator->passes()){
+            if($validator->fails()){
+                return redirect()->route('admin.login')->withErrors($validator);
+            }
+
                 $attempt = [
                     'admin_login' => $post['admin_login'],
                     'password' => $post['admin_password'],
                     'admin_status' => 1,
                 ];
                 $redirectJson = json_decode(base64_decode($redirect));
-                $post['admin_remember_me'] = isset($post['admin_remember_me']);
 
-                if(Auth::attempt($attempt, $post['admin_remember_me'])){
+                if(Auth::attempt($attempt)){
                     session()->flash('success', 'You log in successfully!');
 
                     if ($redirectJson){
@@ -36,9 +38,8 @@ class AuthController extends Controller
                 } else {
                     session()->flash('danger', 'You not log in successfully!');
                 }
-            } else {
-                session()->flash('danger', 'Validation error!');
-            }
+
+
         }
         return view('administrator.auth.login');
     }
