@@ -11,7 +11,7 @@
                     <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Id Admin</th>
+                            <th>#</th>
                             <th>Login</th>
                             <th>Super Admin</th>
                             <th>Status</th>
@@ -19,9 +19,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($admins as $admin)
+                        @foreach($admins as $i => $admin)
                             <tr>
-                                <td>{{ $admin->id_admin }}</td>
+                                <td>{{ $i + 1 }}</td>
                                 <td>{{ $admin->admin_login }}</td>
                                 <td>{{ $admin->admin_superadmin ? 'Yes' : 'No' }}</td>
                                 <td>{{ $admin->admin_status ? 'Active' : 'Inactive'}}</td>

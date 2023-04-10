@@ -11,7 +11,7 @@
                     <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Id Product</th>
+                            <th>#</th>
                             <th>Category Name</th>
                             <th>Name</th>
                             <th>Price</th>
@@ -24,9 +24,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($products as $product)
+                        @foreach($products as $i => $product)
                             <tr>
-                                <td>{{ $product->id_product }}</td>
+                                <td>{{ $i + 1 }}</td>
                                 <td>{{ $product?->category?->category_name }}</td>
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->product_price }} PLN</td>

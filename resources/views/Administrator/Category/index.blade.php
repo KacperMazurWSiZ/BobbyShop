@@ -11,7 +11,7 @@
                     <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Id Category</th>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Amount</th>
@@ -21,9 +21,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($categories as $i => $category)
                             <tr>
-                                <td>{{ $category->id_category }}</td>
+                                <td>{{ $i + 1}}</td>
                                 <td>{{ $category->category_name }}</td>
                                 <td>{{ $category->category_status ? 'Active' : 'Inactive'}}</td>
                                 <td>{{ $category->product_count }}</td>
