@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')
@@ -12,6 +11,7 @@ Route::name('admin.')
         Route::middleware('auth.admin')->group(function (){
             Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/', [IndexController::class, 'index'])->name('index');
+            Route::match(['get', 'post'], '/profile', [IndexController::class, 'profile'])->name('profile');
             Route::name('product.')
                 ->prefix('product')
                 ->group(function () {

@@ -15,4 +15,9 @@ class Product extends Model {
     {
         return $this->belongsTo(Category::class, "id_category","id_category");
     }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, "modified_by", "id_admin");
+    }
 }

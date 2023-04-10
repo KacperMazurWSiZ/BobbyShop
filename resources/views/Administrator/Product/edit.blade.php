@@ -71,6 +71,10 @@
                             <button type="submit" class="btn btn-primary btn-color">Save</button>
                         </form>
 
+                        @if($product->getKey())
+                            Modified by: {{ $product?->admin?->admin_login }} {{ \Carbon\Carbon::parse($product->updated_at)->diffForHumans() }}
+                        @endif
+
                     </div>
                 </div>
             </div>

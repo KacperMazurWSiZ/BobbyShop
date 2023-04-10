@@ -33,7 +33,9 @@
                                 @endif
                                 <button type="submit" class="btn btn-primary btn-color">Save</button>
                             </form>
-
+                            @if($category->getKey())
+                                Modified by: {{ $category?->admin?->admin_login }} {{ \Carbon\Carbon::parse($category->updated_at)->diffForHumans() }}
+                            @endif
                         </div>
                     </div>
             </div>

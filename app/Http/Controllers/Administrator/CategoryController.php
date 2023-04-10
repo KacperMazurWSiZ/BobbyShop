@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::withCount(['product'])->get();
+        $categories = Category::with(['admin'])->withCount(['product'])->get();
         return view('administrator.category.index', [
             "categories" => $categories
         ]);
@@ -20,7 +20,7 @@ class CategoryController extends Controller
 
     public function edit(int $id = 0)
     {
-        $category = Category::findOrNew($id);
+        $category = Category::with(['admin'])->findOrNew($id);
         if (request()->isMethod('POST')){
             $post = request()->get("form");
             $validator = Validator::make($post, [
@@ -33,6 +33,7 @@ class CategoryController extends Controller
             try{
                 $category->fill($post);
                 $category->category_status = isset($post['category_status']);
+                $category->modified_by = auth()->user()->id_admin ?? 0;
                 $category->save();
 
                 DB::commit();

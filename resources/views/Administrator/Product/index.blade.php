@@ -18,6 +18,8 @@
                             <th>Image</th>
                             <th>Quantity</th>
                             <th>Status</th>
+                            <th>Modified by</th>
+                            <th>Updated at</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -29,10 +31,12 @@
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->product_price }} PLN</td>
                                 <td>
-                                    {{ !is_null($product->product_filepath) ? '<img src=" asset("storage/$product->product_filepath")  " alt="photo" width="200" height="300">' : 'N/A' }}
-                                </td>
+                                    {!! !is_null($product->product_filepath) ? "<img src='".asset("storage/$product->product_filepath")."' alt='photo' width='200' height='300'>" : 'N/A' !!}                                </td>
                                 <td>{{ $product->product_quantity }}</td>
                                 <td>{{ $product->product_status ? 'Active' : 'Inactive'}}</td>
+                                <td>{{ $product?->admin?->admin_login }}</td>
+                                <td>{{ \Carbon\Carbon::parse($product->updated_at)->diffForHumans() }}</td>
+
                                 <td>
                                     <a href="{{route('admin.product.edit', ['id' => $product->getKey()])}}" class="btn cur-p btn-warning"><i class="ti-pencil"></i></a>
                                     <a href="{{route('admin.product.delete', ['id' => $product->getKey()])}}" class="btn cur-p btn-danger btn-color"><i class="ti-trash"></i></a>

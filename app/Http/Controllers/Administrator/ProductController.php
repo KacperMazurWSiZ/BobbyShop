@@ -14,7 +14,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with(['category'])->get();
+        $products = Product::with(['category', 'admin'])->get();
         return view('administrator.product.index', [
             "products" => $products
         ]);
@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     public function edit(int $id = 0)
     {
-        $product = Product::findOrNew($id);
+        $product = Product::with(['admin'])->findOrNew($id);
         $categories = Category::all();
         if (request()->isMethod('POST')){
             $post = request()->get("form");
@@ -55,6 +55,7 @@ class ProductController extends Controller
                 $product->fill($post);
                 $product->product_status = isset($post['product_status']);
                 $product->product_filepath = $imageName ?? null;
+                $product->modified_by = auth()->user()->id_admin ?? 0;
                 $product->save();
 
                 DB::commit();

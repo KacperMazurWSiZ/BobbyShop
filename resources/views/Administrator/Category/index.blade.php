@@ -15,6 +15,8 @@
                             <th>Name</th>
                             <th>Status</th>
                             <th>Amount</th>
+                            <th>Modified by</th>
+                            <th>Updated at</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -25,6 +27,8 @@
                                 <td>{{ $category->category_name }}</td>
                                 <td>{{ $category->category_status ? 'Active' : 'Inactive'}}</td>
                                 <td>{{ $category->product_count }}</td>
+                                <td>{{ $category?->admin?->admin_login }}</td>
+                                <td>{{ \Carbon\Carbon::parse($category->updated_at)->diffForHumans() }}</td>
                                 <td>
                                     <a href="{{route('admin.category.edit', ['id' => $category->getKey()])}}" class="btn cur-p btn-warning"><i class="ti-pencil"></i></a>
                                     <a href="{{route('admin.category.delete', ['id' => $category->getKey()])}}" class="btn cur-p btn-danger btn-color"><i class="ti-trash"></i></a>
