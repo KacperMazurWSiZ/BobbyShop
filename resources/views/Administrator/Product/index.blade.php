@@ -32,7 +32,7 @@
                                     {{ !is_null($product->product_filepath) ? '<img src=" asset("storage/$product->product_filepath")  " alt="photo" width="200" height="300">' : 'N/A' }}
                                 </td>
                                 <td>{{ $product->product_quantity }}</td>
-                                <td>{{ $product->product_status }}</td>
+                                <td>{{ $product->product_status ? 'Active' : 'Inactive'}}</td>
                                 <td>
                                     <a href="{{route('admin.product.edit', ['id' => $product->getKey()])}}" class="btn cur-p btn-warning"><i class="ti-pencil"></i></a>
                                     <a href="{{route('admin.product.delete', ['id' => $product->getKey()])}}" class="btn cur-p btn-danger btn-color"><i class="ti-trash"></i></a>

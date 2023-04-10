@@ -214,10 +214,19 @@
                                 <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
                             </div>
                             <div class="peer">
-                                <span class="fsz-sm c-grey-900">Admin</span>
+                                <span class="fsz-sm c-grey-900">{{ ucfirst(auth()->user()->admin_login) }}</span>
                             </div>
                         </a>
                         <ul class="dropdown-menu fsz-sm">
+                            @if(auth()->user()->admin_superadmin)
+                                <li>
+                                    <a href="{{route('admin.admin.index')}}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                                        <i class="ti-settings mR-10"></i>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                            @endif
+
                             <li>
                                 <a href="{{route('admin.logout')}}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
                                     <i class="ti-power-off mR-10"></i>

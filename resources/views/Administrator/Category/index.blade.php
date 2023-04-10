@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{ $category->id_category }}</td>
                                 <td>{{ $category->category_name }}</td>
-                                <td>{{ $category->category_status }}</td>
+                                <td>{{ $category->category_status ? 'Active' : 'Inactive'}}</td>
                                 <td>{{ $category->product_count }}</td>
                                 <td>
                                     <a href="{{route('admin.category.edit', ['id' => $category->getKey()])}}" class="btn cur-p btn-warning"><i class="ti-pencil"></i></a>

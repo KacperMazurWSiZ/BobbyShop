@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')
@@ -24,6 +25,14 @@ Route::name('admin.')
                     Route::get('/', [CategoryController::class, 'index'])->name('index');
                     Route::match(['get', 'post'], '/edit/{id?}', [CategoryController::class, 'edit'])->name('edit');
                     Route::get('/delete/{id?}', [CategoryController::class, 'delete'])->name('delete');
+                });
+            Route::name('admin.')
+                ->prefix('admin')
+                ->middleware('auth.superadmin')
+                ->group(function () {
+                    Route::get('/', [AdminController::class, 'index'])->name('index');
+                    Route::match(['get', 'post'], '/edit/{id?}', [AdminController::class, 'edit'])->name('edit');
+                    Route::get('/delete/{id?}', [AdminController::class, 'delete'])->name('delete');
                 });
         });
     });
