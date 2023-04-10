@@ -30,8 +30,7 @@
                                 <td>{{ $product?->category?->category_name }}</td>
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->product_price }} PLN</td>
-                                <td>
-                                    {!! !is_null($product->product_filepath) ? "<img src='".asset("storage/$product->product_filepath")."' alt='photo' width='200' height='300'>" : 'N/A' !!}                                </td>
+                                <td> {!! !is_null($product->product_filepath) ? "<img src='".asset("storage/$product->product_filepath")."' alt='photo' width='200' height='300'>" : 'N/A' !!}  </td>                             </td>
                                 <td>{{ $product->product_quantity }}</td>
                                 <td>{{ $product->product_status ? 'Active' : 'Inactive'}}</td>
                                 <td>{{ $product?->admin?->admin_login }}</td>
