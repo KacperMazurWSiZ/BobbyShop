@@ -34,5 +34,12 @@ Route::name('admin.')
                     Route::match(['get', 'post'], '/edit/{id?}', [AdminController::class, 'edit'])->name('edit');
                     Route::get('/delete/{id?}', [AdminController::class, 'delete'])->name('delete');
                 });
+            Route::name('announcement.')
+                ->prefix('announcement')
+                ->group(function () {
+                    Route::get('/', [AnnouncementController::class, 'index'])->name('index');
+                    Route::post('/', [AnnouncementController::class, 'create'])->name('create');
+                    Route::get('/delete/{id?}', [AnnouncementController::class, 'delete'])->name('delete');
+                });
         });
     });

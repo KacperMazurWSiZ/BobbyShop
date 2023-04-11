@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
+use App\Models\Announcement;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,6 +42,4 @@ class IndexController extends Controller
         }
             return view('administrator.profile');
         }
-
-
 }
