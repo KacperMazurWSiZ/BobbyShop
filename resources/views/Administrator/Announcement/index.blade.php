@@ -33,31 +33,31 @@
 {{--                </div>--}}
 {{--            </div>--}}
 {{--            <div class="col-md-12">--}}
-                <form method="post" action="{{route('admin.announcement.create')}}">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label" for="exampleInputEmail1">
-                            Announcement title
-                        </label>
-                        <input type="text" class="form-control" name="form[announcement_title]">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="exampleInputEmail1">
-                            Announcement content
-                        </label>
-                        <input type="text" class="form-control" name="form[announcement_content]">
-                    </div>
-                    @if ($errors->any())
-                        <div class="alert-danger alert">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <button type="submit" class="btn btn-primary btn-color">Save</button>
-                </form>
+{{--                <form method="post" action="{{route('admin.announcement.create')}}">--}}
+{{--                    @csrf--}}
+{{--                    <div class="mb-3">--}}
+{{--                        <label class="form-label" for="exampleInputEmail1">--}}
+{{--                            Announcement title--}}
+{{--                        </label>--}}
+{{--                        <input type="text" class="form-control" name="form[announcement_title]">--}}
+{{--                    </div>--}}
+{{--                    <div class="mb-3">--}}
+{{--                        <label class="form-label" for="exampleInputEmail1">--}}
+{{--                            Announcement content--}}
+{{--                        </label>--}}
+{{--                        <input type="text" class="form-control" name="form[announcement_content]">--}}
+{{--                    </div>--}}
+{{--                    @if ($errors->any())--}}
+{{--                        <div class="alert-danger alert">--}}
+{{--                            <ul>--}}
+{{--                                @foreach ($errors->all() as $error)--}}
+{{--                                    <li>{{ $error }}</li>--}}
+{{--                                @endforeach--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
+{{--                    <button type="submit" class="btn btn-primary btn-color">Save</button>--}}
+{{--                </form>--}}
 
 {{--            </div>--}}
 {{--        </div>--}}
@@ -73,76 +73,52 @@
                         <div class="layer w-100 fxg-1 bgc-grey-200 scrollable pos-r">
 
                             <div class="p-20 gapY-15">
-
-                                <div class="peers fxw-nw">
+                                @foreach($announcements as $announcement)
+                                    @if($announcement->id_admin != auth()->user()->id_admin)
+                                    <div class="peers fxw-nw">
                                     <div class="peer mR-20">
-                                        <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/11.jpg" alt="">
+                                        {!!  $announcement->announcement_with_photo ? '<img class="w-2r bdrs-50p" src="' . asset("storage/admins/admin" . $announcement->id_admin . ".png") . '" alt="">' : '' !!}
                                     </div>
                                     <div class="peer peer-greed">
                                         <div class="layers ai-fs gapY-5">
+
                                             <div class="layer">
                                                 <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
                                                     <div class="peer mR-10">
-                                                        <small>10:00 AM</small>
+                                                        <small>{{ \Carbon\Carbon::parse($announcement->created_at)->format('H:i d F') }}</small>
                                                     </div>
                                                     <div class="peer-greed">
-                                                        <span>Lorem Ipsum is simply dummy text of</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layer">
-                                                <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                                    <div class="peer mR-10">
-                                                        <small>10:00 AM</small>
-                                                    </div>
-                                                    <div class="peer-greed">
-                                                        <span>the printing and typesetting industry.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layer">
-                                                <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                                    <div class="peer mR-10">
-                                                        <small>10:00 AM</small>
-                                                    </div>
-                                                    <div class="peer-greed">
-                                                        <span>Lorem Ipsum has been the industry's</span>
+                                                        <span>{{ $announcement->announcement_content }}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                    @else
                                 <div class="peers fxw-nw ai-fe">
                                     <div class="peer ord-1 mL-20">
-                                        <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/12.jpg" alt="">
+
+                                        {!!  $announcement->announcement_with_photo ? '<img class="w-2r bdrs-50p" src="' . asset("storage/admins/admin" . $announcement->id_admin . ".png") . '" alt="">' : '' !!}
                                     </div>
                                     <div class="peer peer-greed ord-0">
                                         <div class="layers ai-fe gapY-10">
                                             <div class="layer">
                                                 <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
                                                     <div class="peer mL-10 ord-1">
-                                                        <small>10:00 AM</small>
+                                                        <small>{{ \Carbon\Carbon::parse($announcement->created_at)->format('H:i d F') }}</small>
                                                     </div>
                                                     <div class="peer-greed ord-0">
-                                                        <span>Heloo</span>
+                                                        <span>{{ $announcement->announcement_content }}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="layer">
-                                                <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
-                                                    <div class="peer mL-10 ord-1">
-                                                        <small>10:00 AM</small>
-                                                    </div>
-                                                    <div class="peer-greed ord-0">
-                                                        <span>??</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                         <div class="layer w-100">
@@ -152,13 +128,10 @@
                                     <form method="post" action="{{route('admin.announcement.create')}}">
                                         @csrf
                                         <div class="mb-3">
-                                            <input type="text" class="form-control bdrs-10em m-0" name="form[announcement_title]" placeholder="Title" required>
+                                            <input type="text" class="form-control bdrs-10em m-0" name="form[announcement_content]" placeholder="Message" required>
                                         </div>
                                         <div class="mb-3">
-                                            <input type="text" class="form-control bdrs-10em m-0" name="form[announcement_content]" placeholder="Content" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <button type="submit" class="btn btn-primary btn-color">Add</button>
+                                            <button type="submit" class="btn btn-primary btn-color">Send</button>
                                         </div>
                                     </form>
                                 </div>

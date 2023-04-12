@@ -21,7 +21,6 @@ class AnnouncementController extends Controller
         if (request()->isMethod('POST')){
             $post = request()->get("form");
             $validator = Validator::make($post, [
-                'announcement_title' => "required",
                 'announcement_content' => "required"
             ]);
             if($validator->fails()){
@@ -29,9 +28,11 @@ class AnnouncementController extends Controller
             }
             DB::beginTransaction();
             try{
+                $this->isWithPhoto();
                 $announcement = new Announcement();
                 $announcement->fill($post);
                 $announcement->announcement_status = 1;
+                $announcement->announcement_with_photo = 1;
                 $announcement->id_admin = auth()->user()->id_admin ?? 0;
                 $announcement->save();
 
@@ -57,5 +58,16 @@ class AnnouncementController extends Controller
             return redirect()->route('admin.announcement.index')->with('danger', 'The operation encountered an error!');
         }
         return redirect()->route('admin.announcement.index')->with('success', 'The operation was successful!');
+    }
+
+    private function isWithPhoto()
+    {
+        $announcement = Announcement::latest()->first();
+        $id_admin = $announcement->id_admin ?? 0;
+        if (auth()->user()->id_admin == $id_admin){
+            $announcement->update([
+                'announcement_with_photo' => 0
+            ]);
+        }
     }
 }

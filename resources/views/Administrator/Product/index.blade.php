@@ -32,7 +32,9 @@
                                 <td>{{ $product->product_price }} PLN</td>
                                 <td> {!! !is_null($product->product_filepath) ? "<img src='".asset("storage/$product->product_filepath")."' alt='photo' width='200' height='300'>" : 'N/A' !!}  </td>                             </td>
                                 <td>{{ $product->product_quantity }}</td>
-                                <td>{{ $product->product_status ? 'Active' : 'Inactive'}}</td>
+                                <td>{!!  $product->product_status ? '<span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c rounded-pill">Active</span>'
+                                : '<span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c rounded-pill">Inactive</span>
+                                '!!}</td>
                                 <td>{{ $product?->admin?->admin_login }}</td>
                                 <td>{{ \Carbon\Carbon::parse($product->updated_at)->diffForHumans() }}</td>
 
