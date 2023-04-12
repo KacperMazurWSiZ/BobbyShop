@@ -22,7 +22,14 @@
         <span class="title @active('admin.category.*')">Categories</span>
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="sidebar-link" href="{{ route("admin.announcement.index") }}">
+                <span class="icon-holder">
+                  <i class="c-purlpe-500 ti-list"></i>
+                </span>
+        <span class="title @active('admin.announcement.*')">Announcements</span>
+    </a>
+</li>
 
 
 
