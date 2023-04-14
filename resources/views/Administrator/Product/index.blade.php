@@ -5,6 +5,11 @@
         <div class="row">
             <div class="col-12">
                 <a href="{{ route('admin.product.edit') }}" class="btn cur-p btn-secondary btn-color mB-30">Add Product</a>
+                <form action="{{ route('admin.product.fetchAndSave') }}" method="POST">
+                    @csrf
+                    <button type="button" id="myButton" class="btn btn-primary btn-color mb-3">Fetch and Save Products</button>
+                </form>
+
             </div>
             <div class="col-md-12">
                 <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -51,3 +56,35 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const myButton = document.getElementById('myButton');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+
+            myButton.addEventListener('click', () => {
+                let temp = myButton.innerHTML;
+                myButton.innerHTML = "Fetching...";
+                fetch('{{ route('admin.product.fetchAndSave') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+
+                    },
+                    body: ''
+                })
+                    .then(response => {
+
+                        myButton.innerHTML = temp;
+                        if(response.status !== 200){
+                            alert('Fetching error!');
+                        }
+                        location.reload();
+                    })
+            });
+        });
+    </script>
+@endpush
