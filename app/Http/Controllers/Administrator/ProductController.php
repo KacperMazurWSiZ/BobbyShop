@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Faker\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -94,6 +97,54 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', 'The operation was successful!');
     }
 
+    public function fetchAndSave(){
+        $response = Http::get('https://store.steampowered.com/api/featuredcategories?format=json')->json();
 
+        $specials = Arr::get($response, 'specials.items', []);
+        $coming_soon = Arr::get($response, 'coming_soon.items', []);
+        $new_releases = Arr::get($response, 'new_releases.items', []);
+
+        $this->addProductsWithCategory('Specials', $specials);
+        $this->addProductsWithCategory('Coming Soon', $coming_soon);
+        $this->addProductsWithCategory('New Releases', $new_releases);
+
+        return response()->json([
+            'message' => 'ok'
+        ], 200);
+    }
+
+    private function addCategory(string $categoryName = ''): Category {
+        return Category::updateOrCreate(['category_name' => $categoryName], ['category_status' => 1]);
+    }
+
+    private function addProducts(array $products = [], int $idCategory = 0): void {
+        foreach ($products as $product) {
+
+            $productPath = 'products/' . $product['id'] . '.jpg';
+
+            if (!Storage::exists("public/$productPath")){
+                $productImage = file_get_contents($product['large_capsule_image']);
+                Storage::put("public/$productPath", $productImage);
+            }
+            Product::updateOrCreate([
+                'product_steam_id' => $product['id']
+            ], [
+                'id_category' => $idCategory,
+                'product_name' => $product['name'],
+                'product_description' => (Factory::create())->text(1000),
+                'product_price' => number_format($product['final_price'] / 100, 2, '.', ''),
+                'product_quantity' => (Factory::create())->numberBetween(1, 99),
+                'product_filepath' => $productPath,
+                'product_status' => 1,
+            ]);
+
+        }
+
+    }
+
+    private function addProductsWithCategory(string $categoryName = '', array $products = []): void {
+        $category = $this->addCategory($categoryName);
+        $this->addProducts($products, $category->id_category ?? 0);
+    }
 
 }
