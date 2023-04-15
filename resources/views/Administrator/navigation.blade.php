@@ -23,9 +23,17 @@
     </a>
 </li>
 <li class="nav-item">
+    <a class="sidebar-link" href="{{ route("admin.order.index") }}">
+                <span class="icon-holder">
+                  <i class="c-green-500 ti-shopping-cart"></i>
+                </span>
+        <span class="title @active('admin.order.*')">Orders</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="sidebar-link" href="{{ route("admin.announcement.index") }}">
                 <span class="icon-holder">
-                  <i class="c-purlpe-500 ti-list"></i>
+                  <i class="c-purple-500 ti-list"></i>
                 </span>
         <span class="title @active('admin.announcement.*')">Announcements</span>
     </a>
