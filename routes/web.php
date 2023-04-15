@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
+
+Route::name('frontend.')
+    ->group(function () {
+        Route::match(['get', 'post'], '/', [FrontendController::class, 'index'])->name('index');
+    });
 
 Route::name('admin.')
     ->prefix('admin')
@@ -41,6 +48,12 @@ Route::name('admin.')
                     Route::get('/', [AnnouncementController::class, 'index'])->name('index');
                     Route::post('/', [AnnouncementController::class, 'create'])->name('create');
                     Route::get('/delete/{id?}', [AnnouncementController::class, 'delete'])->name('delete');
+                });
+            Route::name('order.')
+                ->prefix('order')
+                ->group(function () {
+                    Route::get('/', [OrderController::class, 'index'])->name('index');
+                    Route::get('/show{id?}', [OrderController::class, 'show'])->name('show');
                 });
         });
     });
