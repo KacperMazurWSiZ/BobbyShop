@@ -32,19 +32,21 @@
         </div>
     @endif
     <nav class="navbar">
+
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#product">Games</a></li>
-            <li><a href="#mmo-rpg">MMO RPG</a></li>
-            <li><a href="#fps">FPS</a></li>
-            <li><a href="#battle-royal">Battle Royal</a></li>
-            <li><a href="#sandbox">Sandbox</a></li>
+            <h2>Categories</h2>
+            @foreach($products as $category => $value)
+                <li><a href="#{{$category}}">{{ $category }}</a></li>
+            @endforeach
         </ul>
     </nav>
 
     <div class="shopping-cart">
-        <i class="fa-solid fa-xmark" id="close-cart"></i>
-        <h2 class="cart-title">Your Cart</h2>
+        <div class="shopping-top">
+            <i class="fa-solid fa-xmark" id="close-cart"></i>
+            <h2 class="cart-title">Your Cart</h2>
+        </div>
+
         <form method="post">
             @csrf
             <div class="cart-content">
@@ -56,19 +58,19 @@
             <div class="payment">
                 <div class="form">
                     <label for="emial" class="form-label">Email</label>
-                    <input type="email" name="form[order_email]" id="email">
+                    <input type="email" name="form[order_email]" id="email" required>
                 </div>
                 <div class="form">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" name="form[order_firstname]" id="name">
+                    <input type="text" name="form[order_firstname]" id="name" required>
                 </div>
                 <div class="form">
                     <label for="surname" class="form-label">Surname</label>
-                    <input type="text" name="form[order_lastname]" id="surname">
+                    <input type="text" name="form[order_lastname]" id="surname" required>
                 </div>
                 <div class="form">
                     <label for="address" class="form-label">Address</label>
-                    <input type="text" name="form[order_address]" id="address">
+                    <input type="text" name="form[order_address]" id="address" required>
                 </div>
             </div>
             <div class="total">
@@ -117,10 +119,9 @@
 
 <section id="product">
     <h1 class="heading">Games</h1>
-
     @foreach ($products as $key => $product)
-    <div class="product-container">
-        <a class="anchor" id="mmo-rpg"></a>
+    <div  class="product-container">
+        <a id="{{ $key }}" class="anchor"></a>
         <h2 class="title">{{ $key }}</h2>
 
         <div class="product-slider owl-carousel owl-theme">
@@ -134,11 +135,9 @@
                     <h3 class="product-name">{{ $v['product_name'] }}</h3>
                     <div class="product-id" style="display: none;">{{ $v['id_product'] }}</div>
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        @for($i = 0; $i < $v['product_star']; $i++)
+                            <i class="fas fa-star"></i>
+                        @endfor
                     </div>
                     <div class="price">{{ $v['product_price'] }} PLN</div>
                 </div>
@@ -219,17 +218,17 @@
         <div class="col-md-4 text-center links">
             <h3>Links</h3>
             <div class="nav-links">
-                <a href="https://www.facebook.com/">Facebook</a>
-                <a href="https://www.instagram.com/">Instagram</a>
-                <a href="https://www.tiktok.com/pl-PL/">Tiktok</a>
+                <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+                <a href="https://www.tiktok.com/pl-PL/" target="_blank">Tiktok</a>
             </div>
         </div>
         <div class="col-md-3 text-center follow-us">
             <h3>Follow us</h3>
             <div class="follow-us-links">
-                <a href="https://store.steampowered.com/">Steam</a>
-                <a href="https://www.riotgames.com/en">Riot Games</a>
-                <a href="https://www.blizzard.com/pl-pl/">Blizzard</a>
+                <a href="https://store.steampowered.com/" target="_blank">Steam</a>
+                <a href="https://www.riotgames.com/en" target="_blank">Riot Games</a>
+                <a href="https://www.blizzard.com/pl-pl/" target="_blank">Blizzard</a>
             </div>
         </div>
     </div>

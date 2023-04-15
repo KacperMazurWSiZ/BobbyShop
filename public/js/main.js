@@ -81,6 +81,7 @@ $(document).ready(function(){
         cartShopBox.classList.add("cart-box");
         var cartItems = document.getElementsByClassName('cart-content')[0];
         var cartItemsNames = cartItems.getElementsByClassName('cart-product');
+        console.log(cartShopBox, cartItems, cartItemsNames);
         for(var i = 0; i < cartItemsNames.length; i++){
             if(cartItemsNames[i].innerText == title){
             alert("You have already add this item to cart");
@@ -201,5 +202,12 @@ $(document).ready(function(){
             }
         }
     });
+
+    if (document.querySelector('.alert')) {
+        setTimeout(function() {
+            document.querySelector('.alert').remove();
+        }, 3000);
+    }
+
 
 });

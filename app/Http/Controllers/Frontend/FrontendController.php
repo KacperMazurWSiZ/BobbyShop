@@ -24,7 +24,8 @@ class FrontendController extends Controller
                 'product_price' => $product->product_price,
                 'product_quantity' => $product->product_quantity,
                 'product_filepath' => $product->product_filepath,
-                'product_description' => $product->product_description
+                'product_description' => $product->product_description,
+                'product_star' => $product->product_star
             ];
         }
 
@@ -65,7 +66,7 @@ class FrontendController extends Controller
 
 
         return view('frontend.default', [
-            'products' => $data,
+            'products' => $data
         ]);
     }
 }

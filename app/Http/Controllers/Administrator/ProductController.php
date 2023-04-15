@@ -131,10 +131,11 @@ class ProductController extends Controller
             ], [
                 'id_category' => $idCategory,
                 'product_name' => $product['name'],
-                'product_description' => (Factory::create())->text(1000),
+                'product_description' => (Factory::create())->text(300),
                 'product_price' => number_format($product['final_price'] / 100, 2, '.', ''),
                 'product_quantity' => (Factory::create())->numberBetween(1, 99),
                 'product_filepath' => $productPath,
+                'product_star' => (Factory::create())->numberBetween(1, 5),
                 'product_status' => 1,
             ]);
 
