@@ -55,5 +55,10 @@ Route::name('admin.')
                     Route::get('/', [OrderController::class, 'index'])->name('index');
                     Route::get('/show{id?}', [OrderController::class, 'show'])->name('show');
                 });
+            Route::name('notification.')
+                ->prefix('notification')
+                ->group(function () {
+                    Route::get('/', [NotificationController::class, 'index'])->name('index');
+                });
         });
     });

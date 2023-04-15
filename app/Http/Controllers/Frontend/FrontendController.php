@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -44,8 +45,7 @@ class FrontendController extends Controller
 
                 $id_order = $order->id_order;
 
-                foreach ($items['id'] as $key => $id_product)
-                {
+                foreach ($items['id'] as $key => $id_product) {
                     $product = $products->where('id_product', '=', $id_product)->first();
                     $orderItem = new OrderItem();
                     $orderItem->id_order = $id_order;
@@ -54,6 +54,11 @@ class FrontendController extends Controller
                     $orderItem->order_item_quantity = 1;
                     $orderItem->save();
                 }
+
+                $notification = new Notification();
+                $notification->id_order = $id_order;
+                $notification->notification_body = "{$order->order_firstname} {$order->order_lastname} placed an order.";
+                $notification->save();
 
                 DB::commit();
             }
