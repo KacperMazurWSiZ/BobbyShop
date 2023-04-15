@@ -158,6 +158,7 @@ $(document).ready(function(){
     $('.product-slider').owlCarousel({
         loop:true,
         margin:10,
+        startPosition: 2,
         nav: true,
         items:3,
         autoplay: false,

@@ -140,12 +140,12 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="price">{{ $v['product_price'] }}</div>
+                    <div class="price">{{ $v['product_price'] }} PLN</div>
                 </div>
 
                 <div class="info">
-                    <h4>Product Info</h4>
-                    <p>{{ $v['product_description'] }}. </p>
+                    <h4 class="product-name">{{ $v['product_name']}}</h4>
+                    <p>{{ $v['product_description'] }}</p>
                     <button class="add-cart">Add to cart</button>
                     <div class="share">
                         <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
@@ -156,7 +156,7 @@
             </div>
             @endforeach
         </div>
-    </div>>
+    </div>
     @endforeach
 
 </section>

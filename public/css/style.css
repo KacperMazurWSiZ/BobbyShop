@@ -112,6 +112,12 @@ body::-webkit-scrollbar{
     background: #555;
     right: -100%;
     transition: 0.2s;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#header .shopping-cart::-webkit-scrollbar{
+    display: none;
 }
 
 #header .shopping-cart.active{
@@ -402,8 +408,8 @@ body::-webkit-scrollbar{
 }
 
 #product .product-container .product-slider .product-card .content h3{
-    font-size: 3rem;
-    color: blue;
+    font-size: 2rem;
+    color: navy;
 }
 
 #product .product-container .product-slider .product-card .content .stars i{
@@ -431,8 +437,8 @@ body::-webkit-scrollbar{
 }
 
 #product .product-container .product-slider .product-card .info h4{
-   font-size: 4rem;
-   color: #fff;
+   font-size: 2rem;
+   color: #0f9aee;
 }
 
 #product .product-container .product-slider .product-card .info p{
